@@ -8,8 +8,6 @@ public class DragController : MonoBehaviour
     private Vector2 _screenPos;
     private Vector3 _worldPos;
     private Draggable3D _lastDragged;
-    private Rigidbody2D _rb;
-    private float _mvSpeed = 10f;
     private ConfigurableJoint _draggableJoint;
     private RaycastHit _hit;
     private JointDrive _freeDrive;
@@ -17,12 +15,16 @@ public class DragController : MonoBehaviour
     private JointDrive _attachedAngularDrive;
     private Vector3 _grabRay = new Vector3(0,0,1000);
     private Vector3 _dragTarget = Vector3.zero;
+    private GameController _gc;
 
     void Awake() {
         DragController[] controllers = FindObjectsOfType<DragController>();
         if (controllers.Length > 1) {
             Destroy(gameObject);
+            // oui
         }
+
+        _gc = GameObject.FindObjectOfType<GameController>();
 
         // Initialize free and attached drives
         _freeDrive.positionSpring = 0;
@@ -60,9 +62,8 @@ public class DragController : MonoBehaviour
             Drag();
         }
         else {
-            Debug.Log("ah oui");
             if (Physics.Raycast(_worldPos, _grabRay, out _hit, Mathf.Infinity)) {
-                Debug.Log("Raycast Hit");
+                // Debug.Log("Raycast Hit");
                 Draggable3D draggable = _hit.transform.gameObject.GetComponent<Draggable3D>();
                 if (draggable != null)
                 {
@@ -83,7 +84,7 @@ public class DragController : MonoBehaviour
         _draggableJoint.xDrive = _attachedDrive;
         _draggableJoint.yDrive = _attachedDrive;
         _draggableJoint.angularYZDrive = _attachedAngularDrive;
-        Time.timeScale = 0.5f;
+        _gc.Grab();
     }
 
     void Drag()
@@ -98,7 +99,6 @@ public class DragController : MonoBehaviour
         _draggableJoint.xDrive = _freeDrive;
         _draggableJoint.yDrive = _freeDrive;
         _draggableJoint.angularYZDrive = _freeDrive;
-        Time.timeScale = 1f;
-
+        _gc.Launch();
     }
 }
