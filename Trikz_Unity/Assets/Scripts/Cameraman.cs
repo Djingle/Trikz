@@ -41,11 +41,14 @@ public class Cameraman : MonoBehaviour
     void Update()
     {
         if (_isPreviewOn) {
+            // If the player touches the screen, stop the preview
+            if (Input.GetMouseButton(0) || Input.touchCount > 0) stopPreview();
+
             if (_scenePreviewTime > 0) _scenePreviewTime -= Time.deltaTime;
             else stopPreview();
         }
 
-        // Traveling (only travel if current position != target position)
+        // Traveling (only move if current position != target position)
         if (_sinTime != Mathf.PI)
         {
             _sinTime += Time.deltaTime * _mvtSpeed;
@@ -60,13 +63,12 @@ public class Cameraman : MonoBehaviour
     public void stopPreview()
     {
         _isPreviewOn = false;
-        _scenePreviewTime = 4f;
+        _scenePreviewTime = 2f;
         FocusLaunchable();
     }
 
     public void StartPreview()
     {
-        _scenePreviewTime = 4f;
         _isPreviewOn = true;
         FocusScene();
     }
@@ -74,9 +76,9 @@ public class Cameraman : MonoBehaviour
     public void FocusScene()
     {
         _sinTime = 0f;
-        _currentMat = _launchableMat;
-        _currentPos = _launchablePos;
-        _currentRot = _launchableRot;
+        _currentMat = cam.projectionMatrix;
+        _currentPos = transform.position;
+        _currentRot = transform.rotation;
         _targetMat = _sceneMat;
         _targetPos = _scenePos;
         _targetRot = _sceneRot;
@@ -85,9 +87,9 @@ public class Cameraman : MonoBehaviour
     public void FocusLaunchable()
     {
         _sinTime = 0f;
-        _currentMat = _sceneMat;
-        _currentPos = _scenePos;
-        _currentRot = _sceneRot;
+        _currentMat = cam.projectionMatrix;
+        _currentPos = transform.position;
+        _currentRot = transform.rotation;
         _targetMat = _launchableMat;
         _targetPos = _launchablePos;
         _targetRot = _launchableRot;

@@ -22,11 +22,6 @@ public class GameController : MonoBehaviour
         _cameraman = GameObject.FindObjectOfType<Cameraman>();
     }
 
-    void Start()
-    {
-    }
-
-    // Update is called once per frame
     void Update()
     {
         if (_isLaunchableMoving)
@@ -48,7 +43,7 @@ public class GameController : MonoBehaviour
     {
         _launchable.Reset();
         _tc.NewTarget();
-        _cameraman.FocusLaunchable();
+        _cameraman.StartPreview();
     }
 
     public void CheckWin()
