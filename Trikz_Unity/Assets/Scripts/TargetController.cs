@@ -34,7 +34,7 @@ public class TargetController : MonoBehaviour
         _xStart = Random.Range(_xLowLim, _xUpLim - _minSize);
         _xEnd = Random.Range(_xStart + -_minSize, _xUpLim);
         transform.position = new Vector3((_xStart + _xEnd) / 2, 0.501f, 0f);
-        transform.localScale = new Vector3(Random.Range(.5f, 1.5f), 1f, 1f);
+        transform.localScale = new Vector3(Random.Range(.2f, 1f), 1f, 1f);
     }
 
     void Update()

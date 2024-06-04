@@ -70,7 +70,7 @@ public class DragController : MonoBehaviour
                     _lastDragged = draggable;
                     InitDrag();
                 }
-                else Debug.Log("Object not draggable");
+                // else Debug.Log("Object not draggable");
             }
 
         }
