@@ -7,17 +7,21 @@ public class GameController : MonoBehaviour
 {
     public static event Action<int> totalPointsChanged;
     public static event Action<int> currentPotChanged;
-    public static event Action<bool> launchEnded;
+    public static event Action<int> highScoreChanged;
+    public static event Action<float> multiplierChanged;
 
-    public bool _isLaunchableMoving = false;
-    private Draggable3D _launchable;
-    private TargetController _tc;
-    private Cameraman _cameraman;
-    private UI _ui;
-    private float _restCheckTimer = .5f;
+    private Launchable _launchable;
+
     private bool _isOver = false;
+
     private int _totalPoints = 0;
     private int _currentPot = 1;
+    private int _multipliedPot = 1;
+    private int _highScore = 0;
+    private float _currentMultiplier = 1f;
+
+    private InputController.LaunchState _launchState;
+
 
     private void Awake()
     {
@@ -26,74 +30,45 @@ public class GameController : MonoBehaviour
         {
             Destroy(gameObject);
         }
-        _ui = GameObject.FindObjectOfType<UI>();
-        _tc = GameObject.FindObjectOfType<TargetController>();
-        _launchable = GameObject.FindObjectOfType<Draggable3D>();
-        _cameraman = GameObject.FindObjectOfType<Cameraman>();
+        _launchable = GameObject.FindObjectOfType<Launchable>();
     }
 
     private void OnEnable()
     {
-        UI.continueClicked += Continue;
-        UI.replayClicked += Replay;
-        UI.withdrawClicked += Withdraw;
+        InputController.PhaseChanged += PhaseChanged;
+        Launchable.hasStopped += OnLaunchableHasStopped;
+        Launchable.hasFlipped += OnLaunchableHasFlipped;
     }
 
     private void OnDisable()
     {
-        UI.continueClicked -= Continue;
-        UI.replayClicked -= Replay;
-        UI.withdrawClicked -= Withdraw;
+        InputController.PhaseChanged -= PhaseChanged;
+        Launchable.hasStopped -= OnLaunchableHasStopped;
+        Launchable.hasFlipped -= OnLaunchableHasFlipped;
     }
 
-    void Update()
+    public void OnLaunchableHasStopped(bool win)
     {
-        if (_isLaunchableMoving) // To move to launchable
+        if (_launchable.transform.up.y > .9f)
         {
-            _restCheckTimer -= Time.deltaTime;
-            if (_restCheckTimer <= 0)
-            {
-                if (!_launchable.IsMoving())
-                {
-                    _isLaunchableMoving = false;
-                    CheckWin();
-                }
-                else _restCheckTimer = .5f;
-            }
-        }
-    }
-
-    public void NewLaunch()
-    {
-        _isOver = false;
-        _launchable.Reset();
-        _tc.NewTarget();
-        _cameraman.StartPreview();
-    }
-
-    public void CheckWin()
-    {
-        if (_launchable.IsUpRight() && _tc.CheckIn(_launchable.transform.position.x))
-        {
-            _currentPot *= 2;
+            _currentPot = _multipliedPot;
             currentPotChanged?.Invoke(_currentPot);
-            launchEnded?.Invoke(true);
-            Debug.Log("C'est gagné bien joué voilà");
         }
         else
         {
-            _currentPot *= 1;
+            _currentPot = 1;
             currentPotChanged?.Invoke(_currentPot);
-            launchEnded?.Invoke(false);
-            Debug.Log("Nul à chier le man (" + _currentPot + ")");
         }
         _isOver = true;
     }
 
-    private void Continue()
+    private void OnLaunchableHasFlipped()
     {
-        if (!_isOver) return;
-        NewLaunch();
+        _currentMultiplier *= 1.5f;
+        _multipliedPot = (int)MathF.Ceiling(_currentPot * _currentMultiplier);
+
+        currentPotChanged?.Invoke(_multipliedPot);
+        multiplierChanged?.Invoke(_currentMultiplier);
     }
 
     public void Withdraw()
@@ -101,12 +76,15 @@ public class GameController : MonoBehaviour
         if (!_isOver) return;
 
         _totalPoints += _currentPot;
+        if (_currentPot > _highScore)
+        {
+            _highScore = _currentPot;
+            highScoreChanged?.Invoke(_highScore);
+        }
         _currentPot = 1;
 
         totalPointsChanged.Invoke(_totalPoints);
         currentPotChanged.Invoke(_currentPot);
-
-        NewLaunch();
     }
 
     public void Replay()
@@ -114,18 +92,25 @@ public class GameController : MonoBehaviour
         if (!_isOver) return;
         _currentPot = 1;
         currentPotChanged.Invoke(_currentPot);
-        NewLaunch();
     }
 
-    public void Grab()
+
+    public void Launch(float height, float rotateStrength)
     {
-        //Time.timeScale = 0.75f;
+        _launchable.Launch(height, rotateStrength);
+        _multipliedPot = _currentPot;
+        _currentMultiplier = 1;
     }
 
-    public void Launch()
+
+
+    private void PhaseChanged(InputController.LaunchState launchState)
     {
-        _isLaunchableMoving = true;
-        Time.timeScale = 1f;
-        _cameraman.FocusScene();
+        _launchState = launchState;
+    }
+
+    public void Damp(bool isDamping)
+    {
+        _launchable.Damp(isDamping);
     }
 }

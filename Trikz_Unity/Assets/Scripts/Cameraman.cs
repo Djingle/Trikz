@@ -5,106 +5,94 @@ using UnityEngine;
 public class Cameraman : MonoBehaviour
 {
 
-    [SerializeField] private Camera cam;
+    [SerializeField] private Camera _cam;
+    [SerializeField] private Launchable _launchable;
 
-    // Scene camera projection matrix, position and rotation
-    private Matrix4x4 _sceneMat = new Matrix4x4(new Vector4(1.71791f, 0f, 0f, 0f),
-                                                   new Vector4(0f, 0.96569f, 0f, 0f),
-                                                   new Vector4(0f, 0f, -1.0060f,-1f),
-                                                   new Vector4(0f,0f,-0.60018f,0f));
-    private Vector3 _scenePos = new Vector3(-1.615942f, 11.5648022f, -10.216013f);
-    private Quaternion _sceneRot = new Quaternion(-0.257784307f, -0.340780735f, 0.0977412313f, -0.898811638f);
+    private Vector3 _scenePos = new Vector3(2.5F, 9F, -15F);
+    private Quaternion _sceneRot = Quaternion.identity;
 
-    // Launchable camera projection matrix, position and rotation
-    private Matrix4x4 _launchableMat = new Matrix4x4(new Vector4(0.35579f, 0f, 0f, 0f),
-                                                        new Vector4(0f, 0.2f, 0f, 0f),
-                                                        new Vector4(0f, 0f, -0.02f, 0f),
-                                                        new Vector4(0f, 0f, -1.006f, 1f));
-    private Vector3 _launchablePos = new Vector3(0f, 4.58f, -10f);
-    private Quaternion _launchableRot = new Quaternion(0f, 0f, 0f, 1f);
+    private Vector3 _launchablePos = new Vector3(0.35F, 2.7F, -4.58F);
+    private Quaternion _launchableRot = Quaternion.identity;
+
+    private Vector3 _wallPos = new Vector3(20.2889252f, 1.92013502f, -7.48522282f);
+    private Quaternion _wallRot = new Quaternion(-0.0923758522f, -0.469788015f, -0.0495100021f, 0.876535654f);
 
     private Vector3 _targetPos, _currentPos;
     private Quaternion _targetRot, _currentRot;
-    private Matrix4x4 _currentMat, _targetMat;
 
-    private float _mvtSpeed = 4f;
-    private float _sinTime = Mathf.PI;
-    private float _lerpTime;
-    private float _scenePreviewTime = 2f;
-    private bool _isPreviewOn = true;
+    private float _mvtSpeed = 5f;
+    private float _sinTime = 4f;
+    private bool _followLaunchable = false;
+    public float _xOffset = 2.5f;
+    private Vector3 velocity = Vector3.zero;
 
-    void Start()
+    private Transform _target;
+
+
+    private void OnEnable()
     {
-        StartPreview();
+        InputController.PhaseChanged += OnPhaseChanged;
     }
 
-    void Update()
+    private void OnDisable()
     {
-        if (_isPreviewOn) {
-            // If the player touches the screen, stop the preview
-            if (Input.GetMouseButton(0) || Input.touchCount > 0) stopPreview();
+        InputController.PhaseChanged -= OnPhaseChanged;
+    }
 
-            if (_scenePreviewTime > 0) _scenePreviewTime -= Time.deltaTime;
-            else stopPreview();
-        }
+    private void Start()
+    {
+        _target = _launchable.transform.GetChild(0);
+    }
 
-        // Traveling (only move if current position != target position)
+    private void LateUpdate()
+    {
         if (_sinTime != Mathf.PI)
         {
             _sinTime += Time.deltaTime * _mvtSpeed;
             _sinTime = Mathf.Clamp(_sinTime, 0, Mathf.PI);
-            _lerpTime = SmoothSin(_sinTime);
-            transform.position = Vector3.Lerp(_currentPos, _targetPos, _lerpTime);
-            transform.rotation = Quaternion.Lerp(_currentRot, _targetRot, _lerpTime);
-            cam.projectionMatrix = MatrixLerp(_currentMat, _targetMat, _lerpTime);
+            updateMove();
+        }
+
+            if (_followLaunchable)
+        {
+            Vector3 targetPosition = new Vector3(_target.position.x + _xOffset, _scenePos.y, _scenePos.z);
+            transform.position = Vector3.SmoothDamp(transform.position, targetPosition, ref velocity, .1f);
         }
     }
 
-    public void stopPreview()
+    private void Move(Vector3 newPos, Quaternion newRot)
     {
-        _isPreviewOn = false;
-        _scenePreviewTime = 2f;
-        FocusLaunchable();
-    }
-
-    public void StartPreview()
-    {
-        _isPreviewOn = true;
-        FocusScene();
-    }
-
-    public void FocusScene()
-    {
-        _sinTime = 0f;
-        _currentMat = cam.projectionMatrix;
         _currentPos = transform.position;
         _currentRot = transform.rotation;
-        _targetMat = _sceneMat;
-        _targetPos = _scenePos;
-        _targetRot = _sceneRot;
+        _targetPos = newPos;
+        _targetRot = newRot;
+        _sinTime = 0;
     }
 
-    public void FocusLaunchable()
+    private void updateMove()
     {
-        _sinTime = 0f;
-        _currentMat = cam.projectionMatrix;
-        _currentPos = transform.position;
-        _currentRot = transform.rotation;
-        _targetMat = _launchableMat;
-        _targetPos = _launchablePos;
-        _targetRot = _launchableRot;
+        float lerpTime = SmoothMovement.SmoothSin(_sinTime);
+        transform.SetPositionAndRotation(Vector3.Lerp(_currentPos, _targetPos, lerpTime),
+                                         Quaternion.Lerp(_currentRot, _targetRot, lerpTime));
     }
 
-    private float SmoothSin(float x)
+    private void OnPhaseChanged(InputController.LaunchState launchState)
     {
-        return .5f * Mathf.Sin(x - Mathf.PI / 2f) + .5f;
-    }
-
-    public static Matrix4x4 MatrixLerp(Matrix4x4 from, Matrix4x4 to, float time)
-    {
-        Matrix4x4 ret = new Matrix4x4();
-        for (int i = 0; i < 16; i++)
-            ret[i] = Mathf.Lerp(from[i], to[i], time);
-        return ret;
+        switch (launchState)
+        {
+            case InputController.LaunchState.End:
+                Move(_wallPos, _wallRot);
+                _followLaunchable = false;
+                return;
+            case InputController.LaunchState.Launching:
+                Move(_scenePos, _sceneRot);
+                return;
+            case InputController.LaunchState.Rotating:
+                Move(_launchablePos, _launchableRot);
+                return;
+            case InputController.LaunchState.Damping:
+                _followLaunchable = true;
+                return;
+        }
     }
 }

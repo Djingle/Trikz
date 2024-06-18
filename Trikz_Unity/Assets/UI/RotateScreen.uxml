@@ -1,0 +1,6 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/UI/RadialProgress.uss?fileID=7433441132597879392&amp;guid=182f8fcc5f1754c2d9b03c32745b9604&amp;type=3#RadialProgress" />
+    <ui:VisualElement name="slider-container" style="flex-grow: 1; justify-content: flex-end; align-items: flex-end;">
+        <ui:Slider high-value="100" name="rotate-slider" inverted="true" low-value="-100" show-input-field="false" style="width: 50%; margin-bottom: 50%; margin-right: 10%;" />
+    </ui:VisualElement>
+</ui:UXML>
