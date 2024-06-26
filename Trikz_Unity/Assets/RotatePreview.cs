@@ -12,7 +12,6 @@ public class RotatePreview : MonoBehaviour
         _root = ui.rootVisualElement;
         if (_root == null) Debug.Log("Root not found");
         _preview = new RadialProgress();
-        //_root.Add(_preview);
     }
 
     private void OnEnable()
@@ -30,7 +29,7 @@ public class RotatePreview : MonoBehaviour
 
     private void OnStrengthChanged(float value)
     {
-        _preview.progress = -value;
+        _preview.progress = value-.5f;
     }
 
 
@@ -39,13 +38,11 @@ public class RotatePreview : MonoBehaviour
         if (launchState == InputController.LaunchState.Rotating)
         {
             _root.Add(_preview);
-            Debug.Log("phase is rotatig");
         }
         else if (launchState == InputController.LaunchState.Damping)
         {
+            _preview.progress = 0f;
             _root.Remove(_preview);
-            Debug.Log("phase is dampig");
         }
-        Debug.Log("oui");
     }
 }

@@ -129,6 +129,7 @@ public class Launchable : MonoBehaviour
         transform.rotation = _startRot;
         _rb.useGravity = false;
         _upsideDown = false;
+        Damp(false);
     }
 
     private void RotateForHeight(float time)
@@ -137,7 +138,7 @@ public class Launchable : MonoBehaviour
     }
     private void RotateForStrength(float time)
     {
-        Debug.Log("rotateForStrength");
+        //Debug.Log("rotateForStrength");
     }
 
     private void OnPhaseChanged(InputController.LaunchState launchState)
@@ -186,8 +187,7 @@ public class Launchable : MonoBehaviour
         Vector3 force = new Vector3(_endX/(2f * height), height / 2f) * _launchSpeed;
         _rb.AddForce(force);
 
-        rotateStrength = (rotateStrength + 100f) / 200f;
-        force = new Vector3(0f, 0f, Mathf.Lerp(_minTorque, _maxTorque, rotateStrength));
+        force = new Vector3(0f, 0f, -Mathf.Lerp(_minTorque, _maxTorque, rotateStrength));
         _rb.AddTorque(force, ForceMode.VelocityChange);
 
         _checkMoving = true;
@@ -195,7 +195,6 @@ public class Launchable : MonoBehaviour
 
     public void Damp(bool isDamping)
     {
-        if (isDamping) _rb.angularDrag = _dampingFactor;
-        else _rb.angularDrag = _baseDampingFactor;
+        _rb.angularDrag = isDamping ? _dampingFactor : _baseDampingFactor;
     }
 }

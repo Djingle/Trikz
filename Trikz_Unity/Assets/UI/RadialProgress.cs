@@ -107,7 +107,7 @@ public class RadialProgress : VisualElement
         // Draw the progress
         painter.strokeColor = m_ProgressColor;
         painter.BeginPath();
-        painter.Arc(new Vector2(width * 0.5f, height * 0.5f), width * 0.5f, -90.0f, 360.0f * (progress / 400.0f) - 90.0f, progress>0?ArcDirection.Clockwise:ArcDirection.CounterClockwise);
+        painter.Arc(new Vector2(width * 0.5f, height * 0.5f), width * 0.5f, -90.0f, 360.0f * (progress / 2f) - 90.0f, progress > 0 ? ArcDirection.Clockwise : ArcDirection.CounterClockwise);
         painter.Stroke();
     }
 }
