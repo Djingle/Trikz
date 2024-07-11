@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 31c997cc7ff417b4c9239a3daa962870, type: 3}
+  m_Name: SO_WaterBottle
+  m_EditorClassIdentifier: 
+  Name: Water Bottle
+  Type: 1
+  RotationForce: 50
+  DampingFactor: 2
+  ComY: -0.5
+  BottleDiameter: 0
+  CapDiameter: 0
+  Friction: 0
+  Multiplier: 0
+  Model: {fileID: -3715570858655021377, guid: 77b17d5d7b0b456409a7b526dbdcaeae, type: 3}
+  Materials:
+  - {fileID: 2100000, guid: cd80b35a8ea531b479582c4b97ab8f52, type: 2}
+  - {fileID: 2100000, guid: 7e11bb08579c0924dac9b2c2106502bf, type: 2}

@@ -1,0 +1,29 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
+    <ui:Template name="ScoresScreen" src="project://database/Assets/UI/Documents/HeaderScreens/ScoresScreen.uxml?fileID=9197481963319205126&amp;guid=e61eee0022710624696127187f362378&amp;type=3#ScoresScreen" />
+    <ui:Template name="LaunchScreen" src="project://database/Assets/UI/Documents/ControlScreens/LaunchScreen.uxml?fileID=9197481963319205126&amp;guid=1893f9c0cd657e24889c57416f9d0171&amp;type=3#LaunchScreen" />
+    <ui:Template name="RotateScreen" src="project://database/Assets/UI/Documents/ControlScreens/RotateScreen.uxml?fileID=9197481963319205126&amp;guid=1528023e27eaef2468dceced3fdf3aa1&amp;type=3#RotateScreen" />
+    <ui:Template name="DampScreen" src="project://database/Assets/UI/Documents/ControlScreens/DampScreen.uxml?fileID=9197481963319205126&amp;guid=1417206b27ad849cd83951b04eca4022&amp;type=3#DampScreen" />
+    <ui:Template name="MainMenuScreen" src="project://database/Assets/UI/Documents/MainMenuScreen.uxml?fileID=9197481963319205126&amp;guid=39b2e2541d083f94198938b4de03b2be&amp;type=3#MainMenuScreen" />
+    <ui:Template name="WinScreen" src="project://database/Assets/UI/Documents/EndScreens/WinScreen.uxml?fileID=9197481963319205126&amp;guid=d1c64cdfc43d1402694fc2318172f17b&amp;type=3#WinScreen" />
+    <ui:Template name="LoseScreen" src="project://database/Assets/UI/Documents/EndScreens/LoseScreen.uxml?fileID=9197481963319205126&amp;guid=e508580e3fee84733a20943c8c6dffa6&amp;type=3#LoseScreen" />
+    <ui:Template name="BottleScreen" src="project://database/Assets/UI/Documents/BottleScreen.uxml?fileID=9197481963319205126&amp;guid=f1a1f96ae0edc954fa3c7170676e074e&amp;type=3#BottleScreen" />
+    <Style src="project://database/Assets/UI/Styles/USS.uss?fileID=7433441132597879392&amp;guid=55e6a17f12f8544898e759348640bf2d&amp;type=3#USS" />
+    <Bitbebop.SafeArea exclude-bottom="true">
+        <ui:VisualElement name="game-screen" style="flex-grow: 1; height: auto; width: auto; justify-content: flex-start; align-items: center;">
+            <ui:VisualElement name="header-container" style="flex-grow: 0; height: 400px;">
+                <ui:Instance template="ScoresScreen" name="ScoresScreen" style="display: none;" />
+            </ui:VisualElement>
+            <ui:VisualElement name="modal-view-container" class="modal-view-container" style="display: flex;">
+                <ui:Instance template="LaunchScreen" name="LaunchScreen" class="launch-screen" style="display: none;" />
+                <ui:Instance template="RotateScreen" name="RotateScreen" class="rotate-screen" style="display: none;" />
+                <ui:Instance template="DampScreen" name="DampScreen" class="damp-screen" style="display: none;" />
+                <ui:Instance template="MainMenuScreen" name="MainMenuScreen" style="flex-grow: 1; display: none;" />
+                <ui:Instance template="BottleScreen" name="BottleScreen" style="flex-grow: 1;" />
+            </ui:VisualElement>
+            <ui:VisualElement name="end-screen-container" style="flex-grow: 1; justify-content: space-around;">
+                <ui:Instance template="WinScreen" name="WinScreen" style="display: none;" />
+                <ui:Instance template="LoseScreen" name="LoseScreen" style="display: none;" />
+            </ui:VisualElement>
+        </ui:VisualElement>
+    </Bitbebop.SafeArea>
+</ui:UXML>

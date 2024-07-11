@@ -1,0 +1,12 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/UI/Styles/USS.uss?fileID=7433441132597879392&amp;guid=55e6a17f12f8544898e759348640bf2d&amp;type=3#USS" />
+    <ui:VisualElement name="screen-container" style="align-self: auto; justify-content: center; align-items: center; flex-grow: 1;">
+        <ui:VisualElement name="main-buttons-container" style="height: 70%; max-height: 70%; min-height: 70%; flex-grow: 1; justify-content: center;">
+            <ui:VisualElement name="1st-row-container" style="flex-direction: row; justify-content: space-around; flex-grow: 1; max-height: 200px; height: 200px;">
+                <ui:Button text="Options" parse-escape-sequences="true" display-tooltip-when-elided="true" name="options-button" class="graybox" />
+                <ui:Button text="Bottles" parse-escape-sequences="true" display-tooltip-when-elided="true" name="bottles-button" class="graybox" />
+            </ui:VisualElement>
+            <ui:Button text="Play" parse-escape-sequences="true" display-tooltip-when-elided="true" name="play-button" class="graybox" style="flex-grow: 1; height: 400px; max-height: 400px;" />
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

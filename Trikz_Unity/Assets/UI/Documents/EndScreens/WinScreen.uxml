@@ -1,0 +1,11 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <ui:Template name="MainMenuButton" src="project://database/Assets/UI/Documents/Buttons/MainMenuButton.uxml?fileID=9197481963319205126&amp;guid=856062d9e51143d448cfc542365d64f2&amp;type=3#MainMenuButton" />
+    <Style src="project://database/Assets/UI/Styles/USS.uss?fileID=7433441132597879392&amp;guid=55e6a17f12f8544898e759348640bf2d&amp;type=3#USS" />
+    <ui:VisualElement name="button-container-container" style="flex-grow: 1; align-items: center; justify-content: center;">
+        <ui:VisualElement name="button-container" class="button-container" style="height: auto; width: auto; flex-grow: 0;">
+            <ui:Button text="Bet&#10;Payout" parse-escape-sequences="true" display-tooltip-when-elided="true" name="continue-button" class="button" style="width: 350px; height: 350px;" />
+            <ui:Button text="Withdraw&#10;Payout" parse-escape-sequences="true" display-tooltip-when-elided="true" name="withdraw-button" class="button" style="width: 350px; height: 350px;" />
+        </ui:VisualElement>
+        <ui:Instance template="MainMenuButton" name="MainMenuButton" />
+    </ui:VisualElement>
+</ui:UXML>
