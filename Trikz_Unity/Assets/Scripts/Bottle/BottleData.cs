@@ -5,17 +5,18 @@ using UnityEngine;
 [CreateAssetMenu]
 public class BottleData : ScriptableObject
 {
-    public string Name;
+    public string BottleName;
     public BottleType Type;
     public float RotationForce;
-    public float DampingFactor;
+    public float DampForce;
     public float ComY;
     public float BottleDiameter;
     public float CapDiameter;
-    public float Friction;
+    public float FrictionForce;
     public float Multiplier;
     public Mesh Model;
     public List<Material> Materials;
+    public int Price;
 }
 public enum BottleType
 {

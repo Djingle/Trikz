@@ -98,6 +98,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <CoMPrefab>k__BackingField: {fileID: -142492704981948184, guid: 7b50fd0895535a049b3b2ba5d68b9fb9, type: 3}
+  _endX: 14
+  _launchSpeed: 160
+  _minHeight: 2
+  _maxHeight: 10
+  _animationRotateSpeed: 3
   _launchPreview: {fileID: 4349443011368113899, guid: 326baaa3b95f140ce9cba8449aa40b0f, type: 3}
 --- !u!33 &-9106211443124851077
 MeshFilter:
@@ -106,7 +111,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8365496642647924142}
-  m_Mesh: {fileID: 0}
+  m_Mesh: {fileID: -3715570858655021377, guid: 77b17d5d7b0b456409a7b526dbdcaeae, type: 3}
 --- !u!23 &-8114618654106419231
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -127,6 +132,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
+  - {fileID: 2100000, guid: cd80b35a8ea531b479582c4b97ab8f52, type: 2}
   - {fileID: 2100000, guid: 7e11bb08579c0924dac9b2c2106502bf, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0

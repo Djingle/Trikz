@@ -12,15 +12,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 31c997cc7ff417b4c9239a3daa962870, type: 3}
   m_Name: SO_RedBottle
   m_EditorClassIdentifier: 
-  Name: Red Bottle
+  BottleName: RedBottle
   Type: 0
-  RotationForce: 50
-  DampingFactor: 7
-  ComY: -0.6
-  BottleDiameter: 0
-  CapDiameter: 0
-  Friction: 0
-  Multiplier: 0
-  Model: {fileID: 10208, guid: 0000000000000000e000000000000000, type: 0}
+  RotationForce: 25
+  DampForce: 1.8
+  ComY: -0.3
+  BottleDiameter: 4
+  CapDiameter: 2
+  FrictionForce: 0.1
+  Multiplier: 1.5
+  Model: {fileID: -5495902117074765545, guid: 08125e249df163249a60ae738cd30b4f, type: 3}
   Materials:
   - {fileID: 2100000, guid: a088bb91f4c6d4c3296d826204cd38d0, type: 2}
+  Price: 15

@@ -12,15 +12,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 31c997cc7ff417b4c9239a3daa962870, type: 3}
   m_Name: SO_CubeBottle
   m_EditorClassIdentifier: 
-  Name: Cube Bottle
+  BottleName: CubeBottle
   Type: 0
-  RotationForce: 25
-  DampingFactor: 2
-  ComY: -0.2
-  BottleDiameter: 0
-  CapDiameter: 0
-  Friction: 0
-  Multiplier: 1
+  RotationForce: 35
+  DampForce: 4
+  ComY: -0.35
+  BottleDiameter: 3
+  CapDiameter: 1
+  FrictionForce: 0.05
+  Multiplier: 1.75
   Model: {fileID: -5495902117074765545, guid: 08125e249df163249a60ae738cd30b4f, type: 3}
   Materials:
   - {fileID: 2100000, guid: 7e11bb08579c0924dac9b2c2106502bf, type: 2}
+  Price: 1000

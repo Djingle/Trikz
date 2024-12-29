@@ -1,4 +1,4 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
     <Style src="project://database/Assets/UI/Styles/USS.uss?fileID=7433441132597879392&amp;guid=55e6a17f12f8544898e759348640bf2d&amp;type=3#USS" />
-    <ui:Button text="Menu" parse-escape-sequences="true" display-tooltip-when-elided="true" name="main-menu-button" class="graybox" style="min-width: 350px; max-width: 350px; width: 350px;" />
+    <ui:Button text="Menu" parse-escape-sequences="true" display-tooltip-when-elided="true" name="main-menu-button" class="graybox menu-button" />
 </ui:UXML>

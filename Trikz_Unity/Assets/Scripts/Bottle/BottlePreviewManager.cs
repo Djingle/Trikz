@@ -1,10 +1,9 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class BottlePreviewManager : MonoBehaviour
 {
     public static BottlePreviewManager Instance { get; private set; }
+    [field: SerializeField] BottleData CurrentBottleData { get; set; }
 
     [SerializeField] GameObject _bottlePreviewPrefab;
     [SerializeField] GameObject _previewCameraPrefab;
@@ -29,13 +28,15 @@ public class BottlePreviewManager : MonoBehaviour
 
     private void OnEnable()
     {
-        MenuEvents.BottleButtonClicked += () => SetPreviewActive(true);
+        GameManager.StateChanged += (state) => SetPreviewActive(state == GameState.BottleMenu);
         MenuEvents.BottleSelectionChanged += UpdatePreview;
+        SaveEvents.StateLoaded += (save) => UpdatePreview(save.EquippedBottle);
     }
     private void OnDisable()
     {
-        MenuEvents.BottleButtonClicked -= () => SetPreviewActive(true);
+        GameManager.StateChanged -= (state) => SetPreviewActive(state == GameState.BottleMenu);
         MenuEvents.BottleSelectionChanged -= UpdatePreview;
+        SaveEvents.StateLoaded -= (save) => UpdatePreview(save.EquippedBottle);
     }
 
     public void InitPreview()
@@ -47,16 +48,18 @@ public class BottlePreviewManager : MonoBehaviour
         SetPreviewActive(false);
     }
 
-    public void UpdatePreview(BottleData bottleData)
+    public void UpdatePreview(BottleData newBottleData)
     {
         if (_bottlePreviewObject == null) {
             InitPreview();
         }
-        _bottlePreviewScript.Init(bottleData);
+        if (newBottleData) CurrentBottleData = newBottleData;
+        _bottlePreviewScript.Init(CurrentBottleData);
     }
 
     public void SetPreviewActive(bool active)
     {
+        Debug.Log("Preview : " + active);
         _bottlePreviewObject.SetActive(active);
         _previewCameraObject.SetActive(active);
     }

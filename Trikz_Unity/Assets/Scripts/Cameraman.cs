@@ -8,7 +8,7 @@ public class Cameraman : MonoBehaviour
     public Transform Target { get; set; }
 
     // Camera positions
-    public readonly Vector3 _scenePos = new (2.5F, 9F, -15F);
+    public readonly Vector3 _scenePos = new (2.5F, 6F, -15F);
     public readonly Quaternion _sceneRot = Quaternion.identity;
 
     public readonly Vector3 _launchablePos = new (0.35F, 2.7F, -4.58F);
@@ -113,7 +113,7 @@ public class Cameraman : MonoBehaviour
         {
             case GameState.Win:
             case GameState.Lose:
-                StartSmoothMove(_wallPos, _wallRot, 4);
+                StartSmoothMove(_scenePos, _sceneRot, 4);
                 return;
             case GameState.Launching:
                 StartSmoothMove(_scenePos, _sceneRot, 4);

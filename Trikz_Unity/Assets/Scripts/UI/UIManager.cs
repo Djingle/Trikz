@@ -33,13 +33,11 @@ public class UIManager : MonoBehaviour
         SetupViews();
 
         GameManager.StateChanged += OnStateChanged;
-        MenuEvents.BottleButtonClicked += () => ShowView(_bottleMenuView); 
     }
 
     private void OnDisable()
     {
         GameManager.StateChanged -= OnStateChanged;
-        MenuEvents.BottleButtonClicked -= () => ShowView(_bottleMenuView);
     }
 
     private void SetupViews()
@@ -89,7 +87,8 @@ public class UIManager : MonoBehaviour
         switch (newState) {
             case GameState.Launching:
                 ShowView(_launchView);
-                _scoresView.Show();
+                _loseView.Hide();
+                _winView.Hide();
                 break;
             case GameState.Rotating:
                 ShowView(_rotateView);
@@ -98,14 +97,21 @@ public class UIManager : MonoBehaviour
                 ShowView(_dampView);
                 break;
             case GameState.Win:
-                ShowView(_winView);
+                ShowView(_launchView);
+                _winView.Show();
                 break;
             case GameState.Lose:
-                ShowView(_loseView);
+                ShowView(_launchView);
+                _loseView.Show();
                 break;
             case GameState.Menu:
                 ShowView(_mainMenuView);
-                _scoresView.Hide();
+                _scoresView.Show();
+                _loseView.Hide();
+                _winView.Hide();
+                break;
+            case GameState.BottleMenu:
+                ShowView(_bottleMenuView);
                 break;
         }
     }

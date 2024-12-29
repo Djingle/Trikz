@@ -8,8 +8,9 @@ public class UIView : IDisposable
     protected bool _hideOnAwake = true;
     protected VisualElement _topElement;
     public VisualElement Root => _topElement;
-    public UIView(VisualElement topElement)
+    public UIView(VisualElement topElement, bool hideOnAwake=true)
     {
+        _hideOnAwake = hideOnAwake;
         _topElement = topElement ?? throw new ArgumentNullException(nameof(topElement));
         Initialize();
     }

@@ -1,36 +1,37 @@
 using UnityEngine;
-using System;
 
 public class Launchable : Bottle
 {
     public static Launchable Instance { get; private set; }
 
-    private const float _endX = 17.5f;
-    private const float _launchSpeed = 175;
-    private const float _minHeight = 2f;
-    private const float _maxHeight = 10f;
-    private const float _animationRotateSpeed = 3;
+    public float _endX = 14f;
+    public float _launchSpeed = 160;
+    public float _minHeight = 2f;
+    public float _maxHeight = 10f;
+    public float _animationRotateSpeed = 3;
 
-    private Rigidbody _rb;
-    private Vector3 _displacment = Vector3.zero;
-    private float _sinTime = Mathf.PI;
-    private float _decidedLaunchHeight, _decidedRotateStrength;
 
-    private Vector3 _startPos = new (0, 2.3f, 0);
-    private Quaternion _startRot = Quaternion.identity;
-    private Quaternion _minAngle = Quaternion.Euler(0, 0, 0);
-    private Quaternion _maxAngle = Quaternion.Euler(0, 0, -30);
-    private Quaternion _launchAnimationAngle = Quaternion.Euler(0, 0, 20);
+    Rigidbody _rigidBody;
+    BoxCollider _collider;
+    
+    Vector3 _displacment = Vector3.zero;
+    float _sinTime = Mathf.PI;
+    float _decidedLaunchHeight, _decidedRotateStrength;
 
-    private Quaternion _currentRot, _targetRot;
+    Vector3 _startPos = new (0, 2.3f, 0);
+    Quaternion _startRot = Quaternion.identity;
+    Quaternion _minAngle = Quaternion.Euler(0, 0, 0);
+    Quaternion _maxAngle = Quaternion.Euler(0, 0, -30);
+    Quaternion _launchAnimationAngle = Quaternion.Euler(0, 0, 20);
 
-    private const float _mvtThreshold = .0000001f;
-    private bool _upsideDown = false;
-    private float _upRightThreshhold = .8f;
+    Quaternion _currentRot, _targetRot;
+
+    const float k_MvtThreshold = .0000001f;
+    const float K_UpRightThreshold = .8f;
+    bool _upsideDown = false;
 
     public GameObject _launchPreview;
 
-    private Transform _p;
 
     private void Awake()
     {
@@ -42,7 +43,8 @@ public class Launchable : Bottle
             Instance = this;
         }
 
-        _rb = GetComponent<Rigidbody>();
+        _rigidBody = GetComponent<Rigidbody>();
+        _collider = GetComponent<BoxCollider>();
 
         // Instanciate previews
         _launchPreview = Instantiate(_launchPreview, transform);
@@ -79,9 +81,15 @@ public class Launchable : Bottle
         CenterOfMass.gameObject.SetActive(false);
         Cameraman.Instance.Target = CenterOfMass.transform;
         // Init rigidBody CoM
-        _rb.centerOfMass = new Vector3(0, BottleData.ComY, 0);
-        // Init Collider
-        MeshCollider collider = GetComponent<MeshCollider>();
+        _rigidBody.centerOfMass = new Vector3(0, BottleData.ComY, 0);
+        // Init physics material
+        PhysicMaterial material = new PhysicMaterial();
+        material.staticFriction = BottleData.FrictionForce;
+        material.dynamicFriction = BottleData.FrictionForce;
+        material.frictionCombine = PhysicMaterialCombine.Minimum;
+        _collider.material = material;
+        // Init collider
+
     }
 
     private void FixedUpdate()
@@ -97,9 +105,9 @@ public class Launchable : Bottle
         if (GameManager.Instance.State == GameState.Damping)
         {
             _displacment -= transform.position;
-            if (_displacment.magnitude < _mvtThreshold)
+            if (_displacment.magnitude < k_MvtThreshold)
             {
-                if (transform.up.y > _upRightThreshhold && transform.position.x > DoorController.instance.transform.position.x)
+                if (transform.up.y > K_UpRightThreshold && transform.position.x > DoorController.instance.transform.position.x)
                     LaunchEvents.HasStopped?.Invoke(true);
                 else
                     LaunchEvents.HasStopped?.Invoke(false);
@@ -108,10 +116,10 @@ public class Launchable : Bottle
             _displacment = transform.position;
 
             // Tell InputController when launchable completes a flip
-            if (!_upsideDown && transform.up.y < -_upRightThreshhold) {
+            if (!_upsideDown && transform.up.y < -K_UpRightThreshold) {
                 _upsideDown = true;
             }
-            if (_upsideDown && transform.up.y > -_upRightThreshhold) {
+            if (_upsideDown && transform.up.y > -K_UpRightThreshold) {
                 _upsideDown = false;
                 LaunchEvents.HasFlipped?.Invoke();
             }
@@ -134,7 +142,7 @@ public class Launchable : Bottle
     public void Reset()
     {
         transform.SetPositionAndRotation(_startPos, _startRot);
-        _rb.useGravity = false;
+        _rigidBody.useGravity = false;
         _upsideDown = false;
         OnDampToggled(false);
     }
@@ -161,7 +169,7 @@ public class Launchable : Bottle
 
     private void OnDampToggled(bool isDamping)
     {
-       _rb.angularDrag = isDamping ? BottleData.DampingFactor : 0f;
+       _rigidBody.angularDrag = isDamping ? BottleData.DampForce : 0f;
     }
 
     private void OnStateChanged(GameState newState)
@@ -190,13 +198,13 @@ public class Launchable : Bottle
     public void Launch(float height, float rotateStrength)
     {
         _sinTime = Mathf.PI;
-        _rb.useGravity = true;
+        _rigidBody.useGravity = true;
         height = Mathf.Lerp(_minHeight, _maxHeight, height);
         Vector3 force = new Vector3(_endX/(2f * height), height / 2f) * _launchSpeed;
-        _rb.AddForce(force);
+        _rigidBody.AddForce(force);
 
         float maxTorque = BottleData.RotationForce;
         force = new Vector3(0f, 0f, -Mathf.Lerp(-maxTorque, maxTorque, rotateStrength));
-        _rb.AddTorque(force, ForceMode.VelocityChange);
+        _rigidBody.AddTorque(force, ForceMode.VelocityChange);
     }
 }

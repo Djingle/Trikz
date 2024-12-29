@@ -12,15 +12,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 31c997cc7ff417b4c9239a3daa962870, type: 3}
   m_Name: SO_GreenBottle
   m_EditorClassIdentifier: 
-  Name: Green Bottle
+  BottleName: GreenBottle
   Type: 2
-  RotationForce: 20
-  DampingFactor: 3
+  RotationForce: 25
+  DampForce: 2
   ComY: -0.4
-  BottleDiameter: 0
-  CapDiameter: 0
-  Friction: 0
-  Multiplier: 0
+  BottleDiameter: 4
+  CapDiameter: 2
+  FrictionForce: 0.1
+  Multiplier: 1.3
   Model: {fileID: -5495902117074765545, guid: 08125e249df163249a60ae738cd30b4f, type: 3}
   Materials:
   - {fileID: 2100000, guid: 6af13d7ad5f0b4969a297b77d75028d9, type: 2}
+  Price: 200

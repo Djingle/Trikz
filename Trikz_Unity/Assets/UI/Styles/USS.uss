@@ -31,26 +31,23 @@
 }
 
 .graybox {
-    margin-left: 0;
-    margin-right: 0;
-    margin-top: 0;
-    margin-bottom: 0;
-    border-left-color: rgb(255, 255, 255);
-    border-right-color: rgb(255, 255, 255);
-    border-top-color: rgb(255, 255, 255);
-    border-bottom-color: rgb(255, 255, 255);
-    border-top-width: 4px;
-    border-right-width: 4px;
-    border-bottom-width: 4px;
-    border-left-width: 4px;
-    border-top-left-radius: 8px;
-    border-top-right-radius: 8px;
-    border-bottom-right-radius: 8px;
-    border-bottom-left-radius: 8px;
-    background-color: rgb(56, 55, 84);
+    background-color: rgb(19, 81, 172);
     color: rgb(255, 255, 255);
-    -unity-font-style: bold;
+    -unity-font-style: normal;
     font-size: 50px;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 20px;
+    border-bottom-left-radius: 20px;
+    border-top-width: 10px;
+    border-right-width: 10px;
+    border-bottom-width: 10px;
+    border-left-width: 10px;
+    border-left-color: rgb(133, 175, 236);
+    border-right-color: rgb(133, 175, 236);
+    border-top-color: rgb(133, 175, 236);
+    border-bottom-color: rgb(133, 175, 236);
+    -unity-font-definition: url("project://database/Assets/Art/Fonts/Stopbuck%20SDF.asset?fileID=11400000&guid=57b53fcbd890a2d42b8c87115efaece7&type=2#Stopbuck SDF");
 }
 
 .button-container {
@@ -83,4 +80,83 @@
     width: 100%;
     height: 100%;
     position: absolute;
+}
+
+.menu-button {
+    min-width: 350px;
+    max-width: 350px;
+    width: 350px;
+}
+
+.graybox:active {
+    background-color: rgb(125, 167, 229);
+    border-left-color: rgb(19, 81, 172);
+    border-right-color: rgb(19, 81, 172);
+    border-top-color: rgb(19, 81, 172);
+    border-bottom-color: rgb(19, 81, 172);
+    border-top-width: 10px;
+    border-right-width: 10px;
+    border-bottom-width: 10px;
+    border-left-width: 10px;
+}
+
+.button200 {
+    width: 200px;
+    height: 200px;
+    max-height: 200px;
+    min-height: 200px;
+    max-width: 200px;
+    min-width: 200px;
+    background-image: url("project://database/Assets/Art/Icons/barsHorizontal.png?fileID=2800000&guid=592bc086d6b9b8c4e98ca9024465d299&type=3#barsHorizontal");
+    margin-top: 0;
+    margin-right: 0;
+    margin-bottom: 0;
+    margin-left: 0;
+    padding-top: 0;
+    padding-right: 0;
+    padding-bottom: 0;
+    padding-left: 0;
+}
+
+.buy-equip-button--above-points {
+    background-color: rgb(86, 86, 86);
+}
+
+.unity-progress-bar__container {
+    min-height: 100%;
+    max-height: 100%;
+}
+
+.unity-progress-bar__background {
+    background-color: rgb(19, 81, 172);
+    margin: 0;
+    padding: 0;
+    border-width: 0;
+}
+
+.unity-progress-bar__progress {
+    background-color: rgb(77, 124, 193);
+    margin: 0;
+    padding: 0;
+    border-width: 0;
+}
+
+.unity-collection-view__item:hover {
+    background-color: rgb(19, 81, 172);
+}
+
+.BottleListElement--equipped:hover {
+    background-color: rgb(217, 198, 13);
+}
+
+.unity-collection-view__item--selected {
+    background-color: rgb(76, 119, 182);
+}
+
+.BottleListElement--equipped {
+    background-color: rgb(210, 156, 21);
+}
+
+.world-space-label {
+    font-size: 100px;
 }

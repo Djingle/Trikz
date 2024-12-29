@@ -19,6 +19,13 @@ public class LaunchView : ControlView
 
     protected override void OnPointerDown(PointerDownEvent evt)
     {
+        GameState gameState = GameManager.Instance.State;
+        if (gameState == GameState.Win)
+            GameManager.Instance.Continue();
+
+        else if (gameState == GameState.Lose)
+            GameManager.Instance.Replay();
+
         if (_clickRelativeControl) base.OnPointerDown(evt);
         else LaunchEvents.HeightChanged?.Invoke(RemapValue(evt.localPosition.y));
     }

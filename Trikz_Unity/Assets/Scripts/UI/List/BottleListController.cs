@@ -1,10 +1,6 @@
-using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.U2D.Animation;
-using UnityEngine;
 using UnityEngine.UIElements;
-
-public class BottleListController
+public class BottleListController : UIView
 {
     // UXML template for list entries
     VisualTreeAsset _listElementTemplate;
@@ -14,32 +10,45 @@ public class BottleListController
 
     List<BottleData> _allBottles;
 
-    public void InitializeBottleList(VisualElement root, VisualTreeAsset listElementTemplate)
+    BottleData _equippedBottle;
+    
+    public BottleListController(VisualElement topElement, VisualTreeAsset listElementTemplate, List<BottleData> bottleDataList) : base(topElement, false)
     {
-        EnumerateAllBottles();
-
+        // Create list of all types of bottles
+        _allBottles = bottleDataList;
         // Store a reference to the template for the list entries
         _listElementTemplate = listElementTemplate;
-
-        // Store a reference to the character list element
-        _bottleList = root.Q<ListView>("bottle-list");
-
-        // Store references to the selected character info elements
-        //m_CharClassLabel = root.Q<Label>("character-class");
-        //m_CharNameLabel = root.Q<Label>("character-name");
-        //m_CharPortrait = root.Q<VisualElement>("character-portrait");
-
+        // Fill the UI list with all bottles types
         FillBottleList();
 
-        // Register to get a callback when an item is selected
+        MenuEvents.BottleEquipped += OnBottleEquipped;
+    }
+
+    public override void Dispose()
+    {
+        base.Dispose();
+        MenuEvents.BottleEquipped -= OnBottleEquipped;
+    }
+
+    protected override void SetVisualElements()
+    {
+        base.SetVisualElements();
+        _bottleList = _topElement as ListView;
+    }
+
+    protected override void RegisterCallbacks()
+    {
+        base.RegisterCallbacks();
         _bottleList.selectionChanged += OnBottleSelected;
     }
 
-    void EnumerateAllBottles()
+    protected override void UnRegisterCallbacks()
     {
-        _allBottles = new List<BottleData>();
-        _allBottles.AddRange(Resources.LoadAll<BottleData>("Bottles"));
+        base.RegisterCallbacks();
+        _bottleList.selectionChanged += OnBottleSelected;
     }
+
+    
 
     void FillBottleList()
     {
@@ -66,11 +75,13 @@ public class BottleListController
         _bottleList.bindItem = (item, index) =>
         {
             (item.userData as BottleListElementController)?.SetBottleData(_allBottles[index]);
+            if (_allBottles[index] == _equippedBottle) item.AddToClassList("BottleListElement--equipped");
+            else item.RemoveFromClassList("BottleListElement--equipped");
         };
 
         // Set a fixed item height matching the height of the item provided in makeItem. 
         // For dynamic height, see the virtualizationMethod property.
-        _bottleList.fixedItemHeight = 150;
+        _bottleList.fixedItemHeight = 200;
 
         // Set the actual item's source list/array
         _bottleList.itemsSource = _allBottles;
@@ -81,16 +92,12 @@ public class BottleListController
         // Get the currently selected item directly from the ListView
         var selectedBottle = _bottleList.selectedItem as BottleData;
 
-        // Handle none-selection (Escape to deselect everything)
-        if (selectedBottle == null) {
-            // Clear
-            //m_CharClassLabel.text = "";
-            //m_CharNameLabel.text = "";
-            //m_CharPortrait.style.backgroundImage = null;
-
-            return;
-        }
-
         MenuEvents.BottleSelectionChanged(selectedBottle);
+    }
+
+    void OnBottleEquipped(BottleData data)
+    {
+        _equippedBottle = data;
+        _bottleList.Rebuild();
     }
 }

@@ -1,5 +1,6 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
     <ui:Template name="BottlePreview" src="project://database/Assets/UI/Documents/BottleList/BottlePreview.uxml?fileID=9197481963319205126&amp;guid=45051f87ce818ef42a34a990e9987bdd&amp;type=3#BottlePreview" />
+    <ui:Template name="StatField" src="project://database/Assets/UI/Documents/BottleList/StatField.uxml?fileID=9197481963319205126&amp;guid=5002a03a8e18d364f84420e054aa3bf0&amp;type=3#StatField" />
     <ui:Template name="MainMenuButton" src="project://database/Assets/UI/Documents/Buttons/MainMenuButton.uxml?fileID=9197481963319205126&amp;guid=856062d9e51143d448cfc542365d64f2&amp;type=3#MainMenuButton" />
     <Style src="project://database/Assets/UI/Styles/USS.uss?fileID=7433441132597879392&amp;guid=55e6a17f12f8544898e759348640bf2d&amp;type=3#USS" />
     <ui:VisualElement style="flex-grow: 1;">
@@ -7,7 +8,14 @@
             <ui:VisualElement name="active-bottle-preview" class="graybox" style="flex-grow: 1; width: 40%; max-width: 40%; min-width: 40%;">
                 <ui:Instance template="BottlePreview" name="BottlePreview" style="flex-grow: 1; justify-content: center;" />
             </ui:VisualElement>
-            <ui:VisualElement name="active-bottle-stats" class="graybox" style="flex-grow: 1;" />
+            <ui:VisualElement name="active-bottle-stats" class="graybox" style="flex-grow: 1; justify-content: space-around; padding-top: 10px; padding-bottom: 10px;">
+                <ui:Instance template="StatField" name="rotation-force" />
+                <ui:Instance template="StatField" name="damp-force" />
+                <ui:Instance template="StatField" name="friction-force" />
+                <ui:Instance template="StatField" name="bottle-diameter" />
+                <ui:Instance template="StatField" name="cap-diameter" />
+                <ui:Instance template="StatField" name="multiplier" />
+            </ui:VisualElement>
         </ui:VisualElement>
         <ui:ListView name="bottle-list" class="graybox" style="flex-grow: 1; margin-top: 20px; margin-right: 20px; margin-bottom: 20px; margin-left: 20px;" />
         <ui:VisualElement name="buttons-container" style="flex-grow: 0; flex-direction: row; justify-content: space-around; margin-top: 20px; margin-right: 20px; margin-bottom: 20px; margin-left: 20px;">

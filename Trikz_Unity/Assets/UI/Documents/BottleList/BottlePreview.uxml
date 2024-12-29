@@ -1,3 +1,3 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
-    <ui:VisualElement name="bottle-preview" style="background-image: url(&quot;project://database/Assets/Textures/BottlePreview/BottlePreviewTexture.renderTexture?fileID=8400000&amp;guid=eb0b538bb6013c74180cf9ad4488d206&amp;type=2#BottlePreviewTexture&quot;); padding-top: 100%; height: 0; width: 100%;" />
+    <ui:VisualElement name="bottle-preview" style="background-image: url(&quot;project://database/Assets/Textures/BottlePreview/BottlePreviewTexture.renderTexture?fileID=8400000&amp;guid=eb0b538bb6013c74180cf9ad4488d206&amp;type=2#BottlePreviewTexture&quot;); padding-top: 100%; height: 0; width: 100%; padding-right: 0; padding-bottom: 0; padding-left: 0;" />
 </ui:UXML>

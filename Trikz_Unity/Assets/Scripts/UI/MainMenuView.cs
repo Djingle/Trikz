@@ -41,11 +41,12 @@ public class MainMenuView : UIView
 
     private void OnBottlesClicked(ClickEvent evt)
     {
-        MenuEvents.BottleButtonClicked?.Invoke();
+        Debug.Log("main menu : bottles clicked");
+        GameManager.Instance.ChangeState(GameState.BottleMenu);
     }
 
     private void OnOptionsClicked(ClickEvent evt)
     {
-        MenuEvents.OptionsButtonClicked?.Invoke();
+        GameManager.Instance.ChangeState(GameState.OptionsMenu);
     }
 }
