@@ -82,7 +82,6 @@ public class GameManager : MonoBehaviour
             case GameState.Damping:
                 break;
             case GameState.Menu:
-                if (WspacePanel.Instance) Destroy(WspacePanel.Instance.gameObject);
                 break;
             case GameState.Win:
                 break;

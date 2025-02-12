@@ -1,0 +1,3 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
+    <Style src="project://database/Assets/UI/RadialProgress.uss?fileID=7433441132597879392&amp;guid=182f8fcc5f1754c2d9b03c32745b9604&amp;type=3#RadialProgress" />
+</ui:UXML>

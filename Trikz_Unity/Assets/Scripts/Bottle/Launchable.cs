@@ -30,7 +30,7 @@ public class Launchable : Bottle
     const float K_UpRightThreshold = .8f;
     bool _upsideDown = false;
 
-    public GameObject _launchPreview;
+    //public GameObject _launchPreview;
 
 
     private void Awake()
@@ -47,8 +47,8 @@ public class Launchable : Bottle
         _collider = GetComponent<BoxCollider>();
 
         // Instanciate previews
-        _launchPreview = Instantiate(_launchPreview, transform);
-        _launchPreview.SetActive(false);
+        //_launchPreview = Instantiate(_launchPreview, transform);
+        //_launchPreview.SetActive(false);
         Reset();
     }
 
@@ -177,15 +177,15 @@ public class Launchable : Bottle
         switch (newState)
         {
             case GameState.Launching:
-                if (!_launchPreview.activeSelf) _launchPreview.SetActive(true);
-                else Debug.Log("Launchable : Preview already active");
+                //if (!_launchPreview.activeSelf) _launchPreview.SetActive(true);
+                //else Debug.Log("Launchable : Preview already active");
                 Reset();
                 return;
 
 
             case GameState.Rotating:
-                if (_launchPreview.activeSelf) _launchPreview.SetActive(false);
-                else Debug.Log("Launchable : Preview not active");
+                //if (_launchPreview.activeSelf) _launchPreview.SetActive(false);
+                //else Debug.Log("Launchable : Preview not active");
 
                 SmoothRotate(_launchAnimationAngle);
                 return;
