@@ -14,12 +14,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   BottleName: WaterBottle
   Type: 1
-  RotationForce: 20
+  RotationForce: 10
   DampForce: 1.5
   ComY: -0.25
   BottleDiameter: 5
   CapDiameter: 3
-  FrictionForce: 0.19
+  FrictionForce: 0.1
   Multiplier: 1
   Model: {fileID: -3715570858655021377, guid: 77b17d5d7b0b456409a7b526dbdcaeae, type: 3}
   Materials:

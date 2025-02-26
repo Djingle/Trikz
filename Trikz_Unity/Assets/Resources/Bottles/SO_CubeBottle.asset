@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   BottleName: CubeBottle
   Type: 0
-  RotationForce: 35
+  RotationForce: 17.5
   DampForce: 4
   ComY: -0.35
   BottleDiameter: 3

@@ -10,8 +10,8 @@
     <Style src="project://database/Assets/UI/Styles/USS.uss?fileID=7433441132597879392&amp;guid=55e6a17f12f8544898e759348640bf2d&amp;type=3#USS" />
     <Bitbebop.SafeArea exclude-bottom="true">
         <ui:VisualElement name="game-screen" style="flex-grow: 1; height: auto; width: auto; justify-content: flex-start; align-items: stretch; align-self: auto;">
-            <ui:VisualElement name="header-container" style="flex-grow: 0; height: 400px; align-items: center;">
-                <ui:Instance template="ScoresScreen" name="ScoresScreen" style="display: none;" />
+            <ui:VisualElement name="header-container" style="flex-grow: 0; height: 300px; align-items: center;">
+                <ui:Instance template="ScoresScreen" name="ScoresScreen" style="display: none; flex-grow: 1; width: 100%;" />
             </ui:VisualElement>
             <ui:VisualElement name="modal-view-container" class="modal-view-container" style="display: flex;">
                 <ui:Instance template="LaunchScreen" name="LaunchScreen" class="launch-screen" style="display: none;" />

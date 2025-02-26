@@ -9,7 +9,7 @@ public class WspacePanel : MonoBehaviour
     private void Awake()
     {
         GameManager.StateChanged += OnStateChanged;
-    }
+	}
 
 	private void OnDestroy() {
 		GameManager.StateChanged -= OnStateChanged;

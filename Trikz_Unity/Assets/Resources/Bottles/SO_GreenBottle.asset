@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   BottleName: GreenBottle
   Type: 2
-  RotationForce: 25
+  RotationForce: 12.5
   DampForce: 2
   ComY: -0.4
   BottleDiameter: 4

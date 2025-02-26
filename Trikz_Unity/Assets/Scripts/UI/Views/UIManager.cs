@@ -9,7 +9,7 @@ public class UIManager : MonoBehaviour
 
     UIView _currentView;
     UIView _launchView, _rotateView, _dampView, _winView, _loseView,
-           _scoresView, _mainMenuView, _bottleMenuView;
+           _scoresView, _mainMenuView, _bottleMenuView, _wSpaceUiView;
 
     [SerializeField] VisualTreeAsset _bottleListElementTemplate;
 

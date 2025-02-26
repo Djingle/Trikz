@@ -88,8 +88,6 @@ public class Launchable : Bottle
         material.dynamicFriction = BottleData.FrictionForce;
         material.frictionCombine = PhysicMaterialCombine.Minimum;
         _collider.material = material;
-        // Init collider
-
     }
 
     private void FixedUpdate()

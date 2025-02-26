@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   BottleName: RedBottle
   Type: 0
-  RotationForce: 25
+  RotationForce: 12.5
   DampForce: 1.8
   ComY: -0.3
   BottleDiameter: 4

@@ -13,18 +13,18 @@ public class ScoresView : UIView
     public ScoresView(VisualElement topElement) : base(topElement)
     {
         ScoreEvents.TotalPointsChanged += OnTotalPointsChanged;
-        ScoreEvents.CurrentPotChanged += OnCurrentPotChanged;
+        //ScoreEvents.CurrentPotChanged += OnCurrentPotChanged;
         ScoreEvents.HighScoreChanged += OnHighScoreChanged;
-        ScoreEvents.MultiplierChanged += OnMultiplierChanged;
+        //ScoreEvents.MultiplierChanged += OnMultiplierChanged;
     }
 
     public override void Dispose()
     {
         base.Dispose();
         ScoreEvents.TotalPointsChanged -= OnTotalPointsChanged;
-        ScoreEvents.CurrentPotChanged -= OnCurrentPotChanged;
+        //ScoreEvents.CurrentPotChanged -= OnCurrentPotChanged;
         ScoreEvents.HighScoreChanged -= OnHighScoreChanged;
-        ScoreEvents.MultiplierChanged -= OnMultiplierChanged;
+        //ScoreEvents.MultiplierChanged -= OnMultiplierChanged;
     }
 
     protected override void SetVisualElements()
@@ -33,7 +33,7 @@ public class ScoresView : UIView
         _totalPoints    = _topElement.Q(k_TotalPointsName) as Label;
         _currentPot     = _topElement.Q(k_CurrentPotName) as Label;
         _highScore      = _topElement.Q(k_HighScoreName) as Label;
-        _multiplier = _topElement.Q(k_MultiplierValue) as Label;
+        _multiplier     = _topElement.Q(k_MultiplierValue) as Label;
 
         _totalPoints.text = "0";
         _currentPot.text = "0";
