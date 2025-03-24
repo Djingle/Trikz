@@ -29,7 +29,6 @@ public class HeightPreview : MonoBehaviour {
 
 	private void OnStrengthChanged(float value) {
 		_preview.progress = value;
-		Debug.Log("value : " + value);
 	}
 
 

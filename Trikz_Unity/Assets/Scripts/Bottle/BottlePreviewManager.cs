@@ -59,7 +59,6 @@ public class BottlePreviewManager : MonoBehaviour
 
     public void SetPreviewActive(bool active)
     {
-        Debug.Log("Preview : " + active);
         _bottlePreviewObject.SetActive(active);
         _previewCameraObject.SetActive(active);
     }
